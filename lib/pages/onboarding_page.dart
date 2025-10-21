@@ -34,17 +34,43 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     var onboardingItemToShow = items[activeIndex];
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed("/signup");
+              },
+              child: Text(
+                "Skip>",
+                style: TextStyle(color: Colors.blueAccent, fontSize: 15),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
 
         spacing: 16,
         children: [
-          CustomIndicator(indicatorCount: items.length, activeIndex: activeIndex),
-          Image.asset(onboardingItemToShow.displayImage, height: 300, width: 300),
+          CustomIndicator(
+            indicatorCount: items.length,
+            activeIndex: activeIndex,
+          ),
+          Image.asset(
+            onboardingItemToShow.displayImage,
+            height: 300,
+            width: 300,
+          ),
 
           Text(
             onboardingItemToShow.title,
-            style: GoogleFonts.aDLaMDisplay(fontWeight: FontWeight.bold, fontSize: 32),
+            style: GoogleFonts.aDLaMDisplay(
+              fontWeight: FontWeight.bold,
+              fontSize: 32,
+            ),
             textAlign: TextAlign.center,
           ),
 
@@ -77,7 +103,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     activeIndex = activeIndex + 1;
                   });
                 } else {
-                  Navigator.of(context).pushReplacementNamed("/home");
+                  Navigator.of(context).pushReplacementNamed("/signup");
                 }
               },
               child: Text("Next"),

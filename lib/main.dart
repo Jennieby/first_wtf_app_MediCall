@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
         "/login":(context)=>LoginPage(),
         "/password_reset":(context)=>ForgetPasswordPage()
       },
-      initialRoute: "/signup",
       
     );
   }
