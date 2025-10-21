@@ -36,7 +36,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+               Navigator.of(context).pushReplacementNamed("/login");
+            },
             label: Text(
               "Logout",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),

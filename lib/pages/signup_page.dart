@@ -64,7 +64,12 @@ class _SignupPageState extends State<SignupPage> {
             ],
           ),
           SizedBox(height: 35),
-          CustomButton(buttonText: "Sign up"),
+          CustomButton(
+            buttonText: "Sign up",
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed("/home");
+            },
+          ),
           SizedBox(height: 30),
 
           SocialSignIn(label: "Sign up with"),

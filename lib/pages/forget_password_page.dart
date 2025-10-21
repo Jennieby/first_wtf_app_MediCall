@@ -1,4 +1,3 @@
-
 import 'package:first_wtf_app/widgets/custom_button.dart';
 import 'package:first_wtf_app/widgets/custom_subtitle.dart';
 import 'package:first_wtf_app/widgets/custom_textfield.dart';
@@ -16,15 +15,23 @@ class ForgetPasswordPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          
+
           children: [
             CustomTitle(title: "Forgot Password?"),
             SizedBox(height: 5),
-           CustomSubtitle(subtitle: "Please enter your email, we will send you a password rest link!"),
-           SizedBox(height: 40),
+            CustomSubtitle(
+              subtitle:
+                  "Please enter your email, we will send you a password rest link!",
+            ),
+            SizedBox(height: 40),
             CustomTextField(label: "Email"),
             SizedBox(height: 40),
-            CustomButton(buttonText: "Rest password"),
+            CustomButton(
+              buttonText: "Rest password",
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed("/login");
+              },
+            ),
           ],
         ),
       ),

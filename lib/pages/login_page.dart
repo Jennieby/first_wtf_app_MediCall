@@ -63,7 +63,12 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           SizedBox(height: 35),
-          CustomButton(buttonText: "Log in"),
+          CustomButton(
+            buttonText: "Log in",
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed("/home");
+            },
+          ),
           SizedBox(height: 30),
           SocialSignIn(label: "Sign in with"),
           SizedBox(height: 25),

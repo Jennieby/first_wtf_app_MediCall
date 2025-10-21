@@ -44,17 +44,18 @@ class _OnboardingPageState extends State<OnboardingPage> {
               },
               child: Text(
                 "Skip>",
-                style: TextStyle(color: Colors.blueAccent, fontSize: 15),
+                style: TextStyle(color: Colors.blueAccent, fontSize: 15, fontWeight: FontWeight.w500),
               ),
             ),
           ),
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-
+        // mainAxisAlignment: MainAxisAlignment.center,
+        
         spacing: 16,
         children: [
+          SizedBox(height: 40,),
           CustomIndicator(
             indicatorCount: items.length,
             activeIndex: activeIndex,
