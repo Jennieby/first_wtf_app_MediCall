@@ -35,7 +35,7 @@ class ContactPage extends StatelessWidget {
               hospitalLocation: "52, Inkwell road, Abuja",
             ),
             hospitalName: "City General Hospital",
-            lastContact: "Last contacted: November 12, 2025",
+            lastContact: "November 12, 2025",
           ),
           HospitalCard(
             hospitalContact: HospitalContact(
@@ -43,7 +43,7 @@ class ContactPage extends StatelessWidget {
               hospitalLocation: "10, Aqualox Crescent, Surulere, Lagos",
             ),
             hospitalName: "Community Medical Center",
-            lastContact: "Last contacted: July 26, 2024",
+            lastContact: "July 26, 2024",
           ),
           HospitalCard(
             hospitalContact: HospitalContact(
@@ -51,7 +51,7 @@ class ContactPage extends StatelessWidget {
               hospitalLocation: "New Man Estate, Building 8, Calabar",
             ),
             hospitalName: "Oak Valley Hospital",
-            lastContact: "Last contacted: May 3, 2024",
+            lastContact: "May 3, 2024",
           ),
           HospitalCard(
             hospitalContact: HospitalContact(
@@ -59,7 +59,7 @@ class ContactPage extends StatelessWidget {
               hospitalLocation: "22, Mariam Babangida Road, Asaba, Delta",
             ),
             hospitalName: "St. Lukes Hospital",
-            lastContact: "LastContacted: January 2, 2024",
+            lastContact: "January 2, 2024",
           ),
         ],
       ),
@@ -108,7 +108,7 @@ class HospitalCard extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
         subtitle: Text(
-          lastContact,
+          "Last contacted: $lastContact",
           style: TextStyle(fontWeight: FontWeight.w300),
         ),
         trailing: Icon(Icons.info_outline, color: Colors.blueAccent.shade400),
