@@ -6,27 +6,29 @@ import 'package:first_wtf_app/widgets/custom_title.dart';
 import 'package:first_wtf_app/widgets/social_sign_in.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool rememberMe = false;
+class _SignupPageState extends State<SignupPage> {
+  bool agreeToProcessData = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.only(left: 16, right: 16, top: 140),
+
         children: [
-          CustomTitle(title: "Welcome Back"),
+          CustomTitle(title: "Get Started"),
           SizedBox(height: 5),
-          CustomSubtitle(
-            subtitle: "It's been a while! Log in below with your details.",
-          ),
+          CustomSubtitle(subtitle: "Register below with your details!"),
           SizedBox(height: 40),
+          CustomTextField(label: "Full Name"),
+          SizedBox(height: 20),
           CustomTextField(label: "Email"),
           SizedBox(height: 20),
           CustomPasswordField(),
@@ -34,51 +36,50 @@ class _LoginPageState extends State<LoginPage> {
           Row(
             children: [
               Checkbox(
-                value: rememberMe,
+                value: agreeToProcessData,
                 activeColor: Colors.blueAccent,
                 onChanged: (value) {
                   setState(() {
-                    rememberMe = value!;
+                    agreeToProcessData = value!;
                   });
                 },
               ),
 
-              Text(
-                "Remember me",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
-              ),
-              Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed("/password_reset");
-                },
-                child: Text(
-                  "Forget password?",
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w600,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "I agree to the processing of",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                   ),
-                ),
+                  Text(
+                    "Personal data",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
           SizedBox(height: 35),
-          CustomButton(buttonText: "Log in"),
+          CustomButton(buttonText: "Sign up"),
           SizedBox(height: 30),
-          SocialSignIn(label: "Sign in with"),
+
+          SocialSignIn(label: "Sign up with"),
+
           SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Don't have an account?"),
+              Text("Already have an account?"),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    Navigator.of(context).pushReplacementNamed("/signup");
-                  });
+                  Navigator.of(context).pushReplacementNamed("/login");
                 },
                 child: Text(
-                  " Sign up",
+                  " Sign in",
                   style: TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.w600,

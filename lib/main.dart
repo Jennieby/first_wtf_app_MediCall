@@ -1,5 +1,7 @@
 import 'package:first_wtf_app/bottom_navigation.dart';
+import 'package:first_wtf_app/pages/forget_password_page.dart';
 import 'package:first_wtf_app/pages/login_page.dart';
+import 'package:first_wtf_app/pages/signup_page.dart';
 
 import 'package:first_wtf_app/pages/onboarding_page.dart';
 
@@ -25,9 +27,11 @@ class MyApp extends StatelessWidget {
       routes: {
         "/":(context)=> OnboardingPage(),
         "/home":(context)=>BottomNavigation(),
-        "/login":(context)=>LoginPage()
+        "/signup":(context)=>SignupPage(),
+        "/login":(context)=>LoginPage(),
+        "/password_reset":(context)=>ForgetPasswordPage()
       },
-      initialRoute: "/login",
+      initialRoute: "/signup",
       
     );
   }
