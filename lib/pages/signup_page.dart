@@ -94,54 +94,66 @@ class _SignupPageState extends State<SignupPage> {
           CustomButton(
             buttonText: "Sign up",
             onTap: () {
-              if (!RegExp(r'^[A-Za-z\s]+$').hasMatch(fullNameController.text)) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Enter a Valid Name")));
-                return;
-              }
+              if (fullNameController.text.isNotEmpty &&
+                  emailController.text.isNotEmpty &&
+                  passwordController.text.isNotEmpty &&
+                  confirmPasswordController.text.isNotEmpty) {
+                if (!RegExp(
+                  r'^[A-Za-z\s]+$',
+                ).hasMatch(fullNameController.text)) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("Enter a Valid Name")));
+                  return;
+                }
 
-              if (!emailController.text.contains("@") ||
-                  !emailController.text.contains(".")) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Invalid Email")));
+                if (!emailController.text.contains("@") ||
+                    !emailController.text.contains(".")) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("Invalid Email")));
 
-                return;
-              }
+                  return;
+                }
 
-              if (passwordController.text.length < 6) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      "Password should not be less than 6 characters",
+                if (passwordController.text.length < 6) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Password should not be less than 6 characters",
+                      ),
                     ),
-                  ),
-                );
+                  );
 
-                return;
-              }
+                  return;
+                }
 
-              if (confirmPasswordController.text != passwordController.text) {
+                if (confirmPasswordController.text != passwordController.text) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Passwords do not match")),
+                  );
+
+                  return;
+                }
+                if (agreeToProcessData == false) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(
+                          "Tick the agree box to proceed to sign up",
+                        ),
+                      );
+                    },
+                  );
+                  return;
+                }
+                Navigator.of(context).pushReplacementNamed("/home");
+              } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Passwords do not match")),
+                  SnackBar(backgroundColor: Colors.blueAccent,content: Text("Input field(s) cannot be empty!")),
                 );
-
-                return;
               }
-              if (agreeToProcessData == false) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Text("Tick the agree box to proceed to sign up"),
-                    );
-                  },
-                );
-                return;
-              }
-
-              Navigator.of(context).pushReplacementNamed("/home");
             },
           ),
           SizedBox(height: 30),
