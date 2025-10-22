@@ -65,9 +65,9 @@ class _SignupPageState extends State<SignupPage> {
               Checkbox(
                 value: agreeToProcessData,
                 activeColor: Colors.blueAccent,
-                onChanged: (checkboxValue) {
+                onChanged: (value) {
                   setState(() {
-                    agreeToProcessData = checkboxValue!;
+                    agreeToProcessData = value!;
                   });
                 },
               ),
@@ -134,7 +134,7 @@ class _SignupPageState extends State<SignupPage> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      content: Text("Tick the agree box to proceed to sign in"),
+                      content: Text("Tick the agree box to proceed to sign up"),
                     );
                   },
                 );

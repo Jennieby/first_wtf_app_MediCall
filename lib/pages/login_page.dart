@@ -15,6 +15,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool rememberMe = false;
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +37,15 @@ class _LoginPageState extends State<LoginPage> {
             subtitle: "It's been a while! Log in below with your details.",
           ),
           SizedBox(height: 40),
-          CustomTextField(label: "Email"),
+          CustomTextField(
+            label: "Email",
+            textEditingController: emailController,
+          ),
           SizedBox(height: 20),
-          CustomPasswordField(label: "Password",),
+          CustomPasswordField(
+            label: "Password",
+            textEditingController: passwordController,
+          ),
           SizedBox(height: 25),
           Row(
             children: [
@@ -53,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.of(context).pushNamed("/password_reset");
                 },
                 child: Text(
-                  "Forget password?",
+                  "Forgot password?",
                   style: TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.w600,
@@ -66,7 +82,50 @@ class _LoginPageState extends State<LoginPage> {
           CustomButton(
             buttonText: "Log in",
             onTap: () {
-              Navigator.of(context).pushReplacementNamed("/home");
+              if (emailController.text.isNotEmpty &&
+                  passwordController.text.isNotEmpty) {
+                if (!emailController.text.contains("@") ||
+                    !emailController.text.contains(".")) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Email Address Not Found!")),
+                  );
+                  return;
+                }
+                if (passwordController.text.length < 6) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("Incorrect Password")));
+                  return;
+                }
+                if (rememberMe == false) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text("Sign in details not saved!"),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(
+                                context,
+                              ).pushReplacementNamed("/home");
+                            },
+                            child: Text("Ok"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  return;
+                }
+                Navigator.of(context).pushReplacementNamed("/home");
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Email or Password fields cannot be empty!"),
+                  ),
+                );
+              }
             },
           ),
           SizedBox(height: 30),

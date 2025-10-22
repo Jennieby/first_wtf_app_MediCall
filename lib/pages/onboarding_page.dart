@@ -40,11 +40,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
               onTap: () {
+                
                 Navigator.of(context).pushReplacementNamed("/signup");
+                
               },
               child: Text(
                 "Skip>",
-                style: TextStyle(color: Colors.blueAccent, fontSize: 15, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -52,10 +58,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
-        
         spacing: 16,
         children: [
-          SizedBox(height: 40,),
+          SizedBox(height: 40),
           CustomIndicator(
             indicatorCount: items.length,
             activeIndex: activeIndex,
