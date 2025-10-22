@@ -15,6 +15,10 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   bool agreeToProcessData = false;
+  var fullNameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +31,25 @@ class _SignupPageState extends State<SignupPage> {
           SizedBox(height: 5),
           CustomSubtitle(subtitle: "Register below with your details!"),
           SizedBox(height: 40),
-          CustomTextField(label: "Full Name"),
+          CustomTextField(
+            label: "Full Name",
+            textEditingController: fullNameController,
+          ),
           SizedBox(height: 20),
-          CustomTextField(label: "Email"),
+          CustomTextField(
+            label: "Email",
+            textEditingController: emailController,
+          ),
           SizedBox(height: 20),
-          CustomPasswordField(),
+          CustomPasswordField(
+            label: "Password",
+            textEditingController: passwordController,
+          ),
+          SizedBox(height: 20),
+          CustomPasswordField(
+            label: "Confirm Password",
+            textEditingController: confirmPasswordController,
+          ),
           SizedBox(height: 25),
           Row(
             children: [
@@ -67,6 +85,36 @@ class _SignupPageState extends State<SignupPage> {
           CustomButton(
             buttonText: "Sign up",
             onTap: () {
+              // if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(fullNameController.text)) {
+              //   ScaffoldMessenger.of(
+              //     context,
+              //   ).showSnackBar(SnackBar(content: Text("bshv")));
+              //   return;
+              // }
+              if (!emailController.text.contains("@")) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Invalid Email")));
+
+                return;
+              }
+
+              if(passwordController.text.length<6){
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Password should not be less than 6 characters")));
+
+                return;
+              }
+
+              if(confirmPasswordController.text!=passwordController.text){
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Passwords do not match")));
+
+                return;
+              }
+
               Navigator.of(context).pushReplacementNamed("/home");
             },
           ),

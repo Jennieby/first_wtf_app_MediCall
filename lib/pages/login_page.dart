@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(height: 40),
           CustomTextField(label: "Email"),
           SizedBox(height: 20),
-          CustomPasswordField(),
+          CustomPasswordField(label: "Password",),
           SizedBox(height: 25),
           Row(
             children: [
