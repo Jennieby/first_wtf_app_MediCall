@@ -21,6 +21,15 @@ class _SignupPageState extends State<SignupPage> {
   var confirmPasswordController = TextEditingController();
 
   @override
+  void dispose() {
+    emailController.dispose();
+    fullNameController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
@@ -56,9 +65,9 @@ class _SignupPageState extends State<SignupPage> {
               Checkbox(
                 value: agreeToProcessData,
                 activeColor: Colors.blueAccent,
-                onChanged: (value) {
+                onChanged: (checkboxValue) {
                   setState(() {
-                    agreeToProcessData = value!;
+                    agreeToProcessData = checkboxValue!;
                   });
                 },
               ),
@@ -85,13 +94,15 @@ class _SignupPageState extends State<SignupPage> {
           CustomButton(
             buttonText: "Sign up",
             onTap: () {
-              // if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(fullNameController.text)) {
-              //   ScaffoldMessenger.of(
-              //     context,
-              //   ).showSnackBar(SnackBar(content: Text("bshv")));
-              //   return;
-              // }
-              if (!emailController.text.contains("@")) {
+              if (!RegExp(r'^[A-Za-z\s]+$').hasMatch(fullNameController.text)) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Enter a Valid Name")));
+                return;
+              }
+
+              if (!emailController.text.contains("@") ||
+                  !emailController.text.contains(".")) {
                 ScaffoldMessenger.of(
                   context,
                 ).showSnackBar(SnackBar(content: Text("Invalid Email")));
@@ -99,19 +110,34 @@ class _SignupPageState extends State<SignupPage> {
                 return;
               }
 
-              if(passwordController.text.length<6){
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Password should not be less than 6 characters")));
+              if (passwordController.text.length < 6) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "Password should not be less than 6 characters",
+                    ),
+                  ),
+                );
 
                 return;
               }
 
-              if(confirmPasswordController.text!=passwordController.text){
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Passwords do not match")));
+              if (confirmPasswordController.text != passwordController.text) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Passwords do not match")),
+                );
 
+                return;
+              }
+              if (agreeToProcessData == false) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Text("Tick the agree box to proceed to sign in"),
+                    );
+                  },
+                );
                 return;
               }
 
