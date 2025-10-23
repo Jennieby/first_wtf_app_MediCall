@@ -32,7 +32,7 @@ class ContactPage extends StatelessWidget {
           HospitalCard(
             hospitalContact: HospitalContact(
               hospitalName: "City General Hospital",
-              hospitalLocation: "52, Inkwell road, Abuja",
+              hospitalAddress: "52, Inkwell road, Abuja",
             ),
             hospitalName: "City General Hospital",
             lastContact: "November 12, 2025",
@@ -40,7 +40,7 @@ class ContactPage extends StatelessWidget {
           HospitalCard(
             hospitalContact: HospitalContact(
               hospitalName: "Community Medical Center",
-              hospitalLocation: "10, Aqualox Crescent, Surulere, Lagos",
+              hospitalAddress: "10, Aqualox Crescent, Surulere, Lagos",
             ),
             hospitalName: "Community Medical Center",
             lastContact: "July 26, 2024",
@@ -48,7 +48,7 @@ class ContactPage extends StatelessWidget {
           HospitalCard(
             hospitalContact: HospitalContact(
               hospitalName: "Oak Valley Hospital",
-              hospitalLocation: "New Man Estate, Building 8, Calabar",
+              hospitalAddress: "New Man Estate, Building 8, Calabar",
             ),
             hospitalName: "Oak Valley Hospital",
             lastContact: "May 3, 2024",
@@ -56,7 +56,7 @@ class ContactPage extends StatelessWidget {
           HospitalCard(
             hospitalContact: HospitalContact(
               hospitalName: "St. Lukes Hospital",
-              hospitalLocation: "22, Mariam Babangida Road, Asaba, Delta",
+              hospitalAddress: "22, Mariam Babangida Road, Asaba, Delta",
             ),
             hospitalName: "St. Lukes Hospital",
             lastContact: "January 2, 2024",
@@ -121,10 +121,10 @@ class HospitalContact extends StatelessWidget {
   const HospitalContact({
     super.key,
     required this.hospitalName,
-    required this.hospitalLocation,
+    required this.hospitalAddress,
   });
   final String hospitalName;
-  final String hospitalLocation;
+  final String hospitalAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +139,7 @@ class HospitalContact extends StatelessWidget {
         ),
 
         Text(
-          hospitalLocation,
+          hospitalAddress,
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
           textAlign: TextAlign.center,
         ),

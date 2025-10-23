@@ -22,7 +22,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       displayImage: "assets/onboardingscr.png",
       title: "Get emergency medical help fast ",
       subTitle:
-          "Need urgent help? We’ll connect you to the nearest available ambulance.",
+          "Need urgent help? We'll connect you to the nearest available ambulance.",
     ),
     OnboardingItem(
       displayImage: "assets/onboardingscr.png",

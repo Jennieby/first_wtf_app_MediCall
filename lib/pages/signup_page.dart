@@ -101,17 +101,23 @@ class _SignupPageState extends State<SignupPage> {
                 if (!RegExp(
                   r'^[A-Za-z\s]+$',
                 ).hasMatch(fullNameController.text)) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("Enter a Valid Name")));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.blueAccent,
+                      content: Text("Enter a Valid Name"),
+                    ),
+                  );
                   return;
                 }
 
                 if (!emailController.text.contains("@") ||
                     !emailController.text.contains(".")) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("Invalid Email")));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.blueAccent,
+                      content: Text("Invalid Email"),
+                    ),
+                  );
 
                   return;
                 }
@@ -119,6 +125,7 @@ class _SignupPageState extends State<SignupPage> {
                 if (passwordController.text.length < 6) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
+                      backgroundColor: Colors.blueAccent,
                       content: Text(
                         "Password should not be less than 6 characters",
                       ),
@@ -130,7 +137,10 @@ class _SignupPageState extends State<SignupPage> {
 
                 if (confirmPasswordController.text != passwordController.text) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Passwords do not match")),
+                    SnackBar(
+                      backgroundColor: Colors.blueAccent,
+                      content: Text("Passwords do not match"),
+                    ),
                   );
 
                   return;
@@ -141,7 +151,9 @@ class _SignupPageState extends State<SignupPage> {
                     builder: (context) {
                       return AlertDialog(
                         content: Text(
-                          "Tick the agree box to proceed to sign up",
+                          'Tick the "I agree" box to proceed to sign up',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.w300,),
                         ),
                       );
                     },
@@ -151,7 +163,10 @@ class _SignupPageState extends State<SignupPage> {
                 Navigator.of(context).pushReplacementNamed("/home");
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(backgroundColor: Colors.blueAccent,content: Text("Input field(s) cannot be empty!")),
+                  SnackBar(
+                    backgroundColor: Colors.blueAccent,
+                    content: Text("Input field(s) cannot be empty!"),
+                  ),
                 );
               }
             },

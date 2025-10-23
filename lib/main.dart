@@ -4,6 +4,8 @@ import 'package:first_wtf_app/pages/login_page.dart';
 import 'package:first_wtf_app/pages/signup_page.dart';
 
 import 'package:first_wtf_app/pages/onboarding_page.dart';
+import 'package:first_wtf_app/subpages/password_reset_page.dart';
+import 'package:first_wtf_app/subpages/search_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
         "/home":(context)=>BottomNavigation(),
         "/signup":(context)=>SignupPage(),
         "/login":(context)=>LoginPage(),
-        "/password_reset":(context)=>ForgetPasswordPage()
+        "/search":(context)=>SearchPage(),
+        "/password_reset":(context)=>ForgetPasswordPage(),
+        "/reset":(context)=>PasswordResetPage()
       },
       
     );
