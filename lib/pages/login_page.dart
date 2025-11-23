@@ -1,3 +1,4 @@
+import 'package:first_wtf_app/provider/user_notifier.dart';
 import 'package:first_wtf_app/widgets/custom_button.dart';
 import 'package:first_wtf_app/widgets/custom_passwordtextfield.dart';
 import 'package:first_wtf_app/widgets/custom_subtitle.dart';
@@ -5,6 +6,7 @@ import 'package:first_wtf_app/widgets/custom_textfield.dart';
 import 'package:first_wtf_app/widgets/custom_title.dart';
 import 'package:first_wtf_app/widgets/social_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var userNotifier = Provider.of<UserNotifier>(context);
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.only(left: 16, right: 16, top: 140),
@@ -82,50 +85,12 @@ class _LoginPageState extends State<LoginPage> {
           CustomButton(
             buttonText: "Log in",
             onTap: () {
-              if (emailController.text.isNotEmpty &&
-                  passwordController.text.isNotEmpty) {
-                if (!emailController.text.contains("@") ||
-                    !emailController.text.contains(".")) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Email Address Not Found!")),
-                  );
-                  return;
-                }
-                if (passwordController.text.length < 6) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("Incorrect Password")));
-                  return;
-                }
-                if (rememberMe == false) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text("Sign in details not saved!"),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(
-                                context,
-                              ).pushReplacementNamed("/home");
-                            },
-                            child: Text("Ok"),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                  return;
-                }
-                Navigator.of(context).pushReplacementNamed("/home");
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Email or Password fields cannot be empty!"),
-                  ),
-                );
-              }
+              //  third step of statemanagement?
+              userNotifier.login(
+                context,
+                emailController.text.trim(),
+                passwordController.text.trim(),
+              );
             },
           ),
           SizedBox(height: 30),
@@ -137,9 +102,7 @@ class _LoginPageState extends State<LoginPage> {
               Text("Don't have an account?"),
               GestureDetector(
                 onTap: () {
-                  
-                    Navigator.of(context).pushReplacementNamed("/signup");
-                 
+                  Navigator.of(context).pushReplacementNamed("/signup");
                 },
                 child: Text(
                   " Sign up",

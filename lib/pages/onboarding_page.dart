@@ -1,3 +1,4 @@
+import 'package:first_wtf_app/models/onboarding_items.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,19 +14,19 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   List<OnboardingItem> items = [
     OnboardingItem(
-      displayImage: "assets/onboardingscr.png",
+      displayImage: "assets/ambulance3.avif",
       title: "Welcome to MediCall",
       subTitle:
           "Quickly find and request ambulances from nearby hospitals during emergencies.",
     ),
     OnboardingItem(
-      displayImage: "assets/onboardingscr.png",
+      displayImage: "assets/ambulance2.avif",
       title: "Get emergency medical help fast ",
       subTitle:
           "Need urgent help? We'll connect you to the nearest available ambulance.",
     ),
     OnboardingItem(
-      displayImage: "assets/onboardingscr.png",
+      displayImage: "assets/first_responders_alt.avif",
       title: "Meet world class first responders",
       subTitle: "Wherever you are, we get you to the very best care.",
     ),
@@ -151,14 +152,4 @@ class CustomIndicator extends StatelessWidget {
   }
 }
 
-class OnboardingItem {
-  String title;
-  String subTitle;
-  String displayImage;
 
-  OnboardingItem({
-    required this.displayImage,
-    required this.title,
-    required this.subTitle,
-  });
-}

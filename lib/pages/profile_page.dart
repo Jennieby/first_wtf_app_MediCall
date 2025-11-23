@@ -1,7 +1,10 @@
+import 'package:first_wtf_app/models/user_details.dart';
 import 'package:first_wtf_app/pages/emergency_contacts_page.dart';
 import 'package:first_wtf_app/pages/notifications_page.dart';
 import 'package:first_wtf_app/pages/personal_information_page.dart';
+import 'package:first_wtf_app/provider/user_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -13,8 +16,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    var userProv = Provider.of<UserNotifier>(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Profile", style: TextStyle(fontWeight: FontWeight.w600)),
         centerTitle: true,
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
@@ -37,7 +42,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             onPressed: () {
-               Navigator.of(context).pushReplacementNamed("/login");
+              userProv.logout();
+              Navigator.of(context).pushReplacementNamed("/login");
             },
             label: Text(
               "Logout",
@@ -71,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Column _buildAccountSection() {
+  Widget _buildAccountSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -125,21 +131,34 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Column _buildProfileDetails() {
+  Widget _buildProfileDetails() {
+    UserDetails? user = Provider.of<UserNotifier>(context).loggedInUser;
+    if (user == null) return Text("User details not set");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircleAvatar(radius: 50, child: Icon(Icons.person, size: 80)),
+        Container(
+          decoration: BoxDecoration(shape: BoxShape.circle),
+          clipBehavior: Clip.hardEdge,
+          child:user.profilePicture.isEmpty? Icon(Icons.person, size: 100,): Image.network(
+            
+            user.profilePicture,
+            width: 100,
+            height: 100,
+            fit: BoxFit.cover,
+          ),
+        ),
+        // CircleAvatar(radius: 50, child: Icon(Icons.person, size: 80)),
         SizedBox(height: 10),
         Text(
-          "Username",
+          user.name,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
             letterSpacing: 0.5,
           ),
         ),
-        Text("email address", style: TextStyle(fontWeight: FontWeight.w200)),
+        Text(user.email, style: TextStyle(fontWeight: FontWeight.w200)),
       ],
     );
   }

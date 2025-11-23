@@ -6,7 +6,7 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(automaticallyImplyLeading: false,
         title: Text(
           "Contacted Hospitals",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

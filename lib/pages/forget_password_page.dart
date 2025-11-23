@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:first_wtf_app/widgets/custom_button.dart';
 import 'package:first_wtf_app/widgets/custom_subtitle.dart';
 import 'package:first_wtf_app/widgets/custom_textfield.dart';
 import 'package:first_wtf_app/widgets/custom_title.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
@@ -16,6 +19,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   bool showOtp = false;
   late String otpvalue;
   var emailController = TextEditingController();
+  late Timer timer;
+  int seconds = 10;
   @override
   void dispose() {
     emailController.dispose();
@@ -61,6 +66,15 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                         setState(() {
                           showOtp = true;
                         });
+                        timer = Timer.periodic(Duration(seconds: 1), (timer) {
+                          if (seconds > 0) {
+                            setState(() {
+                              seconds--;
+                            });
+                          } else {
+                            timer.cancel();
+                          }
+                        });
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -95,6 +109,42 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           onSubmit: (value) {
             otpvalue = value;
           },
+        ),
+        RichText(
+          text: TextSpan(
+            text: "Didn't get the code?",
+            style: TextStyle(color: Colors.black),
+            children: [
+              TextSpan(
+                text: "  Resend",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.w500,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    if (seconds==0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("OTP Resent!"),
+                        backgroundColor: Colors.blueAccent,
+                      ),
+                    );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Wait time has not elapsed!"),
+                        backgroundColor: Colors.blueAccent,
+                      ),
+                    );
+                    }
+                    
+                  },
+              ),
+
+              TextSpan(text: " in $seconds"),
+            ],
+          ),
         ),
         SizedBox(height: 40),
         CustomButton(

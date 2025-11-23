@@ -1,3 +1,4 @@
+import 'package:first_wtf_app/provider/user_notifier.dart';
 import 'package:first_wtf_app/widgets/custom_button.dart';
 import 'package:first_wtf_app/widgets/custom_passwordtextfield.dart';
 import 'package:first_wtf_app/widgets/custom_subtitle.dart';
@@ -5,6 +6,7 @@ import 'package:first_wtf_app/widgets/custom_textfield.dart';
 import 'package:first_wtf_app/widgets/custom_title.dart';
 import 'package:first_wtf_app/widgets/social_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -31,6 +33,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    var userProv = Provider.of<UserNotifier>(context);
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.only(left: 16, right: 16, top: 140),
@@ -94,81 +97,12 @@ class _SignupPageState extends State<SignupPage> {
           CustomButton(
             buttonText: "Sign up",
             onTap: () {
-              if (fullNameController.text.isNotEmpty &&
-                  emailController.text.isNotEmpty &&
-                  passwordController.text.isNotEmpty &&
-                  confirmPasswordController.text.isNotEmpty) {
-                if (!RegExp(
-                  r'^[A-Za-z\s]+$',
-                ).hasMatch(fullNameController.text)) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.blueAccent,
-                      content: Text("Enter a Valid Name"),
-                    ),
-                  );
-                  return;
-                }
-
-                if (!emailController.text.contains("@") ||
-                    !emailController.text.contains(".")) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.blueAccent,
-                      content: Text("Invalid Email"),
-                    ),
-                  );
-
-                  return;
-                }
-
-                if (passwordController.text.length < 6) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.blueAccent,
-                      content: Text(
-                        "Password should not be less than 6 characters",
-                      ),
-                    ),
-                  );
-
-                  return;
-                }
-
-                if (confirmPasswordController.text != passwordController.text) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.blueAccent,
-                      content: Text("Passwords do not match"),
-                    ),
-                  );
-
-                  return;
-                }
-                if (agreeToProcessData == false) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text(
-                          'Tick the "I agree" box to proceed to sign up',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w300,),
-                        ),
-                      );
-                    },
-                  );
-                  return;
-                }
-                Navigator.of(context).pushReplacementNamed("/home");
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Colors.blueAccent,
-                    content: Text("Input field(s) cannot be empty!"),
-                  ),
-                );
-              }
+              userProv.signup(
+                context: context,
+                username: fullNameController.text,
+                email: emailController.text.trim(),
+                password: passwordController.text,
+              );
             },
           ),
           SizedBox(height: 30),
